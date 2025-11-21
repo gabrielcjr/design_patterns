@@ -1,4 +1,4 @@
-import UseCase from "./UseCase";
+import UseCase from "../usecase/UseCase";
 
 export default class LoggerDecorator implements UseCase {
 
@@ -6,7 +6,6 @@ export default class LoggerDecorator implements UseCase {
     }
 
     execute(input: any): Promise<any> {
-        console.log(input);
         return this.useCase.execute(input);
     }
 }

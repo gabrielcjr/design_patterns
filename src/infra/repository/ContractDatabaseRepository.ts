@@ -1,7 +1,7 @@
-import Contract from "./Contract";
-import ContractRepository from "./ContractRepository";
-import DatabaseConnection from "./DatabaseConnection";
-import Payment from "./Payment";
+import Contract from "../../domain/Contract";
+import ContractRepository from "../../application/repository/ContractRepository";
+import DatabaseConnection from "../database/DatabaseConnection";
+import Payment from "../../domain/Payment";
 
 export default class ContractDatabaseRepository implements ContractRepository {
 
@@ -12,10 +12,10 @@ export default class ContractDatabaseRepository implements ContractRepository {
         const contractsData = await this.connection.query("select * from carneiro.contract", []);
         for (const contractData of contractsData) {
             const contract = new Contract(
-                contractData.id_contract, 
-                contractData.description, 
-                parseFloat(contractData.amount), 
-                contractData.date, 
+                contractData.id_contract,
+                contractData.description,
+                parseFloat(contractData.amount),
+                contractData.date,
                 contractData.periods
             );
             const paymentsData = await this.connection.query("select * from carneiro.payment where id_contract = $1", [contract.idContract]);
